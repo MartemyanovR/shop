@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+ <head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+  <style>
+  .c {
+	   border: 1px solid #333; /* Рамка */
+	   display: inline-block;
+	   padding: 5px 15px;      /* Поля */
+	   text-decoration: none; /* Убираем подчёркивание */
+	   color: #000; 		  /* Цвет текста */   
+   }
+	.c:hover {
+	   background: linear-gradient(to bottom, #fcfff4, #e9e9ce); /* Градиент */
+   }
+   </style>
+ </head>
+<body>		
+	<!-- создание товара -->
+	<div>	
+		<form th:action="@{/shop/new}"  th:object="${product}" th:method="post">
+			<label for="name">Enter name</label>
+			<input type="text" th:field="*{name}" id="name"/>	
+		 	<br />
+			<label for="cost">Enter price</label>
+			<input type="text" th:field="*{cost}" id="cost"/>	
+			<br/>
+			<label for="party">Enter group</label>
+			<input type="text" th:field="*{party}" id="party"/>	
+			<br></br> 
+			<input type="submit" class="c" value="Create Product">
+		</form>
+	</div>	
+</body>
+</html>
