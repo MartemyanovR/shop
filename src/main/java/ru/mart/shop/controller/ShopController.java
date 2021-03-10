@@ -23,9 +23,8 @@ public class ShopController {
 
 	//приветствие
 	@GetMapping("/greeting")
-	public String greeting(@RequestParam(name = "name", required = false, defaultValue = "Shop")
-							String name, Model model) {
-		model.addAttribute("name", name);
+	public String greeting( Model model) {
+		
 		return "greeting";
 	}	
 	
