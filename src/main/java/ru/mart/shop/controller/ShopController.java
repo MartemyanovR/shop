@@ -15,35 +15,35 @@ import ru.mart.shop.model.Product;
 import ru.mart.shop.repository.ProductRepository;
 
 @Controller
-@RequestMapping("/shop")
+@RequestMapping
 public class ShopController {
 	
 	@Autowired()
 	private ProductRepository productRepo;
 
 	//приветствие
-	@GetMapping("/greeting")
+	@GetMapping
 	public String greeting( Model model) {
 		
 		return "greeting";
 	}	
 	
 	//главная страница
-		@GetMapping
+		@GetMapping("/shop")
 	public String index(Model model) {
 		model.addAttribute("products", productRepo.findAll());		
 		return "main";
 	}
 	
 	//страница создания товара
-	@GetMapping("/new")
+	@GetMapping("/shop/new")
 	public String newPerson(Model model) {
 		model.addAttribute("product",  new Product());
 		return "new";
 	}	
 
 	//добавление нового товара
-	@PostMapping("/new")
+	@PostMapping("/shop/new")
 	public String add(@RequestParam("name") String name, 
 							@RequestParam("cost") Long cost,
 								@RequestParam("party") String party,
@@ -58,21 +58,21 @@ public class ShopController {
 	}
 	
 	//выбор конктретного товара
-	@GetMapping("/{id}")
+	@GetMapping("/shop/{id}")
 	public String show(@PathVariable("id") Integer id, Model model) {
 		getProduct(id, model);
 		return "show";
 	}
 	
 	//страница для измений
-	@GetMapping("/{id}/edit")
+	@GetMapping("/shop/{id}/edit")
 	public String edit(@PathVariable("id") int id, Model model) {
 		getProduct(id, model);
 		return "edit";
 	}
 	
 	//обновление товара
-	@PostMapping("/{id}")
+	@PostMapping("/shop/{id}")
 	public String  update(@PathVariable("id") int id,
 								@RequestParam("name") String name, 
 									@RequestParam("cost") Long cost,
@@ -103,7 +103,7 @@ public class ShopController {
 	}	
 	
 	//поиск товара
-	@PostMapping("/filter")
+	@PostMapping("/shop/filter")
 	public String filter(@RequestParam("filter") String filter,  Model model) {
 		Iterable<Product> products;
 		if(filter != null && !(filter.isEmpty())) {
