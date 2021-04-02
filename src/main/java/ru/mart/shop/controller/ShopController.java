@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,6 +72,18 @@ public class ShopController {
 		return "edit";
 	}
 	
+	//вспомогательный метод поиска продукта по id
+		private void getProduct(int id, Model model) {
+			Product product;
+			Optional<Product> productOptional = productRepo.findById(id);
+			if(productOptional.isPresent()) {
+				product = productOptional.get();
+				model.addAttribute("product", product);
+			} else {
+				System.out.println("Product not found");
+			}		
+		}	
+	
 	//обновление товара
 	@PostMapping("/shop/{id}")
 	public String  update(@PathVariable("id") int id,
@@ -90,17 +103,7 @@ public class ShopController {
 		return "redirect:/shop";
 	}
 	
-	//вспомогательный метод поиска продукта по id
-	private void getProduct(int id, Model model) {
-		Product product;
-		Optional<Product> productOptional = productRepo.findById(id);
-		if(productOptional.isPresent()) {
-			product = productOptional.get();
-			model.addAttribute("product", product);
-		} else {
-			System.out.println("Product not found");
-		}		
-	}	
+	
 	
 	//поиск товара
 	@PostMapping("/shop/filter")
@@ -115,7 +118,11 @@ public class ShopController {
 		return "main";
 	}
 	
-
+	@GetMapping("/shop/delete")
+	public String delete(@RequestParam("id") int id) {
+		productRepo.deleteById(id);
+		return "redirect:/shop";
+	}
 	
 	
 }

@@ -32,7 +32,7 @@
 				<th>Price</th>
 				<th>Group</th>
 			</tr>
-				<tr th:each="product : ${products}">
+			<tr th:each="product : ${products}">
 				<td><a th:href="@{/shop/{id}(id=${product.getId()})}"
 				th:text="${product.getName()}">Name</a></td>
 				<td th:text="${product.getCost()}"/>

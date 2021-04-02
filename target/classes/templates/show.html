@@ -20,8 +20,11 @@
 				<td th:text="${product.getCost()}"/>
 				<td th:text="${product.getParty()}"/>
 			</tr>
-		</table>  	
-			
+		</table>  			
 		<a th:href="@{/shop/{id}/edit(id=${product.getId()})}">Edit</a>
+		<br/>
+		
+		<a th:href="@{/shop/delete?id={id}(id=${product.getId()})}">Delete</a>	
+			
 	</body>
 </html>	
