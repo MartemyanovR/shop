@@ -8,22 +8,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import ru.mart.shop.model.Role;
 import ru.mart.shop.model.User;
 import ru.mart.shop.repository.UserRepository;
 
 @Controller
+@RequestMapping
 public class RegistrationController {
 
+	@Autowired(required=true)
 	private UserRepository userRepo;
 	
-	@Autowired	
-	public RegistrationController(UserRepository userRepo) {
-		super();
-		this.userRepo = userRepo;
-	}
+	
+//	public RegistrationController(UserRepository userRepo) {
+//		this.userRepo = userRepo;
+//	}
 
+	 @GetMapping("/login")
+	 public String login() {
+		 return "login";
+	 }
+	
+	
 	@GetMapping("/registration")
 	public String regirstration() {
 		return "registration";
@@ -40,6 +48,7 @@ public class RegistrationController {
 		
 		user.setActive(true);
 		user.setRoles(Stream.of(Role.USER).collect(Collectors.toSet()));
+		userRepo.save(user);
 		return "redirect:/login";
 		}
 	

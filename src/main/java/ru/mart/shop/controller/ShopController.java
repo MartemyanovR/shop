@@ -19,7 +19,7 @@ import ru.mart.shop.repository.ProductRepository;
 @RequestMapping
 public class ShopController {
 	
-	@Autowired()
+	@Autowired(required=true)
 	private ProductRepository productRepo;
 
 	//приветствие
