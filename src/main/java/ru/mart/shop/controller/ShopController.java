@@ -3,6 +3,7 @@ package ru.mart.shop.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ru.mart.shop.model.Product;
+import ru.mart.shop.model.User;
 import ru.mart.shop.repository.ProductRepository;
 
 @Controller
@@ -45,14 +47,16 @@ public class ShopController {
 
 	//добавление нового товара
 	@PostMapping("/shop/new")
-	public String add(@RequestParam("name") String name, 
-							@RequestParam("cost") Long cost,
-								@RequestParam("party") String party,
-														Model model) {
+	public String add(@AuthenticationPrincipal User user,
+							@RequestParam("name") String name, 
+											@RequestParam("cost") Long cost,
+												@RequestParam("party") String party,
+																		Model model) {
 		Product product = new Product();
 		product.setName(name);
 		product.setCost(cost);
 		product.setParty(party);
+		product.setAuthor(user);
 		model.addAttribute("product", product);
 		productRepo.save(product);
 		return "redirect:/shop";
@@ -101,9 +105,7 @@ public class ShopController {
 			productRepo.updateProduct(name, party, cost, id);
 		}
 		return "redirect:/shop";
-	}
-	
-	
+	}	
 	
 	//поиск товара
 	@PostMapping("/shop/filter")

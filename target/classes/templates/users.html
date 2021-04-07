@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>List users</title>
+	</head>
+<body>
+	
+	<table>
+		<caption>User list</caption>
+		<tr>
+			<th>Id</th>
+			<th>UserName</th>
+			<th>Role</th>
+			<th>Amount<th>
+			<th>Active<th>
+		</th>
+		<tr th:each="user : ${users}" >
+			<td th:text="${user.getId()}"/>
+			<td><a th:href="@{/admin/user/{user}(user=${user.getId})}" th:text="${user.getUsername()}"></a></td>
+			<td th:each="role : ${user.getRoles()}" th:text="${role}"/>
+			<td th:text="${user.getAmount()}"/>
+			<td th:text="${user.isActive} ? ACTIVE : BANNED"/>  
+		</tr>
+	</table>
+</body>
+</html>

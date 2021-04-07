@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Getting Started: Hello shop!</title>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>  
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/> 
 	</head>
 	<body>	
 		<!--Имя пользователя и форма logout -->	
@@ -13,7 +13,8 @@
         </form>
 	
 		<!-- форма добавлениия товара -->		
-		<a th:href="@{/shop/new}" class="c">Add product</a>
+		<a th:href="@{/shop/new}"  class="c">Add product</a>
+		<a th:href="@{/admin/users}" class="c" >Users</a>
 		<br></br>
 		
 		<!-- фильтр -->
@@ -25,18 +26,20 @@
 		</div>
 			
 		<!-- проход по списку и вывод на экран -->
-		<table border="1">	
+		<table border="1" >	
 			<caption>Product list</caption>
 			<tr>
 				<th>Name</th>
 				<th>Price</th>
 				<th>Group</th>
+				<th>Author</th>
 			</tr>
-			<tr th:each="product : ${products}">
+			<tr th:each="product : ${products}" >
 				<td><a th:href="@{/shop/{id}(id=${product.getId()})}"
 				th:text="${product.getName()}">Name</a></td>
 				<td th:text="${product.getCost()}"/>
 				<td th:text="${product.getParty()}"/>
+				<td th:text="${product.getAuthorName()}"/>
 			</tr>
 		</table>  	
 	</body>

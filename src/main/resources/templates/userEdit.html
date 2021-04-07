@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"> 
+	<head>
+		<meta charset="UTF-8">
+		<title>Edit product</title>
+	</head>
+	<body>
+		<div>
+			<form th:action="@{/admin/user/{user}(user=${user.getId})}" th:object="${user}" th:method="post">
+				<label for="username">User name</label>
+				<input type="text" th:field="*{username}" id="username">
+				<br/>
+				<label for="amount">Cash</label>
+				<input type="number" th:field="*{amount}" id="amount">
+				<br/>				
+				<input type="checkbox"  th:each="role : ${T(ru.mart.shop.model.Role).values()}" th:text="${role}">
+				<br/>
+				<select name="Status">
+    				<option th:each="status : ${T(ru.mart.shop.model.Status).values()}" 
+       					 th:value="${status}" th:text="${status}"></option>
+				</select>						
+				<br/>
+				<input type="submit" value="Edit">
+			</form>
+		</div>		
+	</body>
+</html>
